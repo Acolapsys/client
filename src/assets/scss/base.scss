@@ -1,0 +1,36 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+html,
+body
+
+{
+  @apply cd-h-full cd-text-base-main cd-font-regular cd-overflow-hidden;
+}
+
+#app {
+    @apply cd-flex cd-flex-col cd-h-full cd-relative cd-ml-[94px];
+}
+
+.container {
+    @apply cd-w-full xl:cd-max-w-5xl cd-mx-auto cd-p-2;
+
+}
+
+:focus-visible {
+    @apply cd-outline-none;
+  }
+
+input,
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  &:focus {
+    outline: none;
+  }
+}

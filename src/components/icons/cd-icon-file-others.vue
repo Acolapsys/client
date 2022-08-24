@@ -1,0 +1,25 @@
+<template>
+  <svg
+    width="18"
+    height="22"
+    viewBox="0 0 18 22"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M10 0C10.5523 0 11 0.447715 11 1V4C11 5.65685 12.3431 7 14 7H17C17.5523 7 18 7.44772 18 8V19C18 20.6569 16.6569 22 15 22H3C1.34315 22 0 20.6569 0 19V3C0 1.34315 1.34315 0 3 0H10Z"
+      fill="currentColor"
+    />
+    <path
+      d="M13.9774 0.176589C13.4681 -0.0369872 13 0.44679 13 0.999075V3.99907C13 4.55136 13.4477 4.99907 14 4.99907H17C17.5523 4.99907 18.0361 4.53096 17.8225 4.02165C17.73 3.80114 17.5972 3.59624 17.4142 3.41329L14.5858 0.584861C14.4028 0.401915 14.1979 0.269055 13.9774 0.176589Z"
+      fill="currentColor"
+    />
+  </svg>
+</template>
+<script lang="ts">
+import { defineComponent } from "vue";
+
+export default defineComponent({
+  name: "cd-icon-file-others"
+});
+</script>
