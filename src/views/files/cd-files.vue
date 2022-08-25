@@ -2,8 +2,8 @@
   <div class="cd-flex cd-justify-between cd-mb-8">
     <h1 class="cd-font-bold cd-text-3xl cd-leading-10">Files</h1>
     <div class="cd-flex">
-      <cd-button active class="cd-mr-4">
-        <span>+ Create new folder</span>
+      <cd-button active class="cd-mr-4" @click="openModal">
+        <span>+ Create new dir</span>
       </cd-button>
       <cd-button class="cd-flex cd-text-grey-3">
         <cd-icon-upload-file class="cd-mr-[10px] cd-w-5 cd-h-5 cd-flex-shrink-0" />
@@ -12,10 +12,11 @@
     </div>
   </div>
   <cd-files-file-list :files="files" />
+  <cd-add-dir-modal v-model:visible="isCreateModalVisible" @create="createDir" />
 </template>
 
 <script lang="ts">
-import { defineComponent, onBeforeMount, computed } from "vue";
+import { defineComponent, onBeforeMount, computed, ref } from "vue";
 import { useStore } from "@/store";
 
 export default defineComponent({
@@ -26,14 +27,23 @@ export default defineComponent({
     const files = computed(() => {
       return store.state.file.files;
     });
-    const currentDir = computed(() => {
-      return store.state.file.currentDir;
+    const currentDirId = computed(() => {
+      return store.state.file.currentDir?.id;
     });
     onBeforeMount(async () => {
-      await store.dispatch("file/getFiles", currentDir.value);
+      await store.dispatch("file/getFiles", currentDirId.value);
     });
 
-    return { files };
+    const isCreateModalVisible = ref(false);
+    const openModal = () => {
+      isCreateModalVisible.value = true;
+    };
+    const createDir = async (title: string) => {
+      await store.dispatch("file/createDir", { dirId: currentDirId.value, name: title });
+      isCreateModalVisible.value = false;
+    };
+
+    return { files, createDir, isCreateModalVisible, openModal };
   }
 });
 </script>

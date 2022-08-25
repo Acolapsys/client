@@ -1,6 +1,6 @@
-import { File } from "../user";
+import { File } from "../file";
 
 export interface FileProps {
     files: File[];
-    currentDir: number | null;
+    currentDir: File | null;
 }

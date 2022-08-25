@@ -9,7 +9,7 @@
 </template>
 <script lang="ts">
 import { defineComponent, computed, PropType } from "vue";
-import { File } from "@/types/user";
+import { FileType, File } from "@/types/file";
 
 export default defineComponent({
   props: {
@@ -20,7 +20,7 @@ export default defineComponent({
   },
   setup(props) {
     const icon = computed(() => {
-      const isDir = props.file?.type === "dir";
+      const isDir = props.file?.type === FileType.DIR;
       return isDir ? "cd-icon-folder" : "cd-icon-file-others";
     });
     const date = computed(() => {

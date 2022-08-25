@@ -31,7 +31,7 @@ const actions = <ActionTree<UserProps, GlobalDataProps>>{
         password
       });
       commit("setUser", res.user);
-      commit("file/setCurrentDir", res.user?.rootDirId || null, {root: true});
+      commit("file/setCurrentDir", res.user?.rootDir || null, {root: true});
       commit("setIsAuth", true);
       saveToLocalStorage(config.TOKEN_STORAGE_KEY, res.token);
       return true;
@@ -50,7 +50,7 @@ const actions = <ActionTree<UserProps, GlobalDataProps>>{
       
 
       commit("setUser", res.user);
-      commit("file/setCurrentDir", res.user?.rootDirId || null, {root: true});
+      commit("file/setCurrentDir", res.user?.rootDir || null, {root: true});
 
       commit("setIsAuth", true);
       saveToLocalStorage(config.TOKEN_STORAGE_KEY, res.token);
