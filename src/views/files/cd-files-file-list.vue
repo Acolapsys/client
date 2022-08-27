@@ -1,6 +1,6 @@
 <template>
-  <div class="cd-rounded-[14px] cd-bg-white cd-p-6 cd-h-full">
-    <div class="cd-flex cd-items-center cd-mb-2">
+  <div class="cd-rounded-[14px] cd-bg-white cd-p-6">
+    <div class="cd-flex cd-items-center cd-mb-4 cd-flex-shrink-0">
       <cd-button class="cd-mr-6" active @click="toParentDir">{{ "<" }} Back</cd-button>
       <span>{{ currentDir.name || "root" }}</span>
     </div>
@@ -8,7 +8,9 @@
     <div
       class="cd-rounded-[14px] cd-grid cd-grid-cols-1 md:cd-grid-cols-2 lg:cd-grid-cols-3 cd-gap-5"
     >
+      <p v-if="files.length === 0">Файлы отсутствуют</p>
       <cd-files-file-item
+        v-else
         v-for="file in files"
         :key="file.id"
         :file="file"
@@ -21,7 +23,7 @@
 
 <script lang="ts">
 import { defineComponent, PropType, computed } from "vue";
-import { File } from "@/types/file";
+import { File, FileType } from "@/types/file";
 import { useStore } from "@/store";
 
 export default defineComponent({
@@ -43,7 +45,9 @@ export default defineComponent({
     };
 
     const selectDir = (file: File) => {
-      store.dispatch("file/selectDir", file.id);
+      if (file.type === FileType.DIR) {
+        store.dispatch("file/selectDir", file.id);
+      }
     };
     return {
       currentDir,

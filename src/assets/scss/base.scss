@@ -13,7 +13,11 @@ body
 }
 
 #app {
-    @apply cd-flex cd-flex-col cd-h-full cd-relative cd-ml-[94px];
+    @apply cd-relative cd-ml-[94px] cd-overflow-x-hidden cd-grid;
+    height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr auto;
 }
 
 .container {
