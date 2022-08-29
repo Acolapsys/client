@@ -12,13 +12,14 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { IconMenuItem } from "@/types/menu";
+import { defineComponent, PropType } from "vue";
 
 export default defineComponent({
   name: "cd-sidebar-menu",
   props: {
     item: {
-      type: Object,
+      type: Object as PropType<IconMenuItem>,
       required: true
     }
   },

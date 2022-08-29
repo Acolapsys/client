@@ -15,20 +15,15 @@
 <script lang="ts">
 import { defineComponent, computed } from "vue";
 import { useStore } from "@/store";
-import { useRouter, RouteLocationRaw } from "vue-router";
-
-type menuItemType = {
-  id: string;
-  label: string;
-  to: RouteLocationRaw;
-};
+import { useRouter } from "vue-router";
+import { MenuItem } from "@/types/menu";
 
 export default defineComponent({
   setup() {
     const store = useStore();
     const router = useRouter();
-    const isAuth = computed(() => store.state.user.isAuth);
-    const menu = computed(() => {
+    const isAuth = computed<boolean>(() => store.state.user.isAuth);
+    const menu = computed<MenuItem[]>(() => {
       return isAuth.value
         ? [
             {
@@ -51,7 +46,7 @@ export default defineComponent({
           ];
     });
 
-    const menuClick = (item: menuItemType) => {
+    const menuClick = (item: MenuItem): void => {
       if (item.id === "logout") {
         store.dispatch("user/logout");
         router.push({ name: "login" });

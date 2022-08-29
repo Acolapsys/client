@@ -5,7 +5,6 @@ export const saveToLocalStorage = (key: string, value: any): void => {
 
 export const loadFromLocalStorage = (key: string): string | null => {
   const val = localStorage.getItem(key);
-  console.log(typeof val, val);
 
   if (val) return JSON.parse(val);
   return null;

@@ -5,7 +5,12 @@
       class="cd-w-[400px] cd-m-auto cd-bg-white cd-p-8 cd-h-full cd-rounded-lg"
     >
       <h3 class="cd-mb-6">Регистрация</h3>
-      <cd-input v-model="email" placeholder="Введите email" classes="cd-mb-4" />
+      <cd-input
+        v-model="email"
+        v-focus:custom="'#input-native'"
+        placeholder="Введите email"
+        classes="cd-mb-4"
+      />
       <cd-input v-model="password" placeholder="Введите пароль" classes="cd-mb-4" />
       <div class="cd-flex cd-justify-center cd-space-x-4">
         <cd-button class="cd-w-20" @click="onCancel">Cancel</cd-button>
@@ -17,7 +22,6 @@
 
 <script lang="ts">
 import { defineComponent, ref } from "vue";
-import { AxiosResponse } from "axios";
 import { useStore } from "@/store";
 
 export default defineComponent({
@@ -33,11 +37,10 @@ export default defineComponent({
     };
 
     const onSubmit = async () => {
-      const response = await store.dispatch("user/register", {
+      await store.dispatch("user/register", {
         email: email.value,
         password: password.value
       });
-      console.log(response);
     };
 
     return { email, password, onCancel, onSubmit };

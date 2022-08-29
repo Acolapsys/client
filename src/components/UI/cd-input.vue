@@ -4,8 +4,10 @@
     :class="{ 'cd-pr-10': icon, [classes]: true }"
   >
     <input
+      id="input-native"
       :type="type"
       :placeholder="placeholder"
+      autocomplete="off"
       v-model="inputValue"
       class="cd-text-sm cd-leading-5 cd-bg-grey-controls cd-h-5"
     />
@@ -33,7 +35,7 @@ export default defineComponent({
     },
     classes: {
       type: String,
-      default: null
+      default: ""
     },
     type: {
       type: String,
@@ -51,10 +53,11 @@ export default defineComponent({
   emits: ["update:modelValue"],
   setup(props, { emit }) {
     const { classes } = toRefs(props);
+
     const inputClasses = computed(() => {
       const baseClasses =
         "cd-py-3 cd-px-5 cd-bg-grey-controls cd-rounded-[7px] cd-text-sm cd-leading-5";
-      const allClasses = [baseClasses].join(" ");
+      const allClasses = [baseClasses, classes].join(" ");
       return allClasses;
     });
     const inputValue = useModelWrapper(props, emit);

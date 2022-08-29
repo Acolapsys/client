@@ -1,5 +1,5 @@
 <template>
-  <button :class="buttonClasses">
+  <button :class="buttonClasses" :type="type">
     <slot></slot>
   </button>
 </template>
@@ -11,6 +11,10 @@ export default defineComponent({
     active: {
       type: Boolean,
       default: false
+    },
+    type: {
+      type: String,
+      default: "submit"
     }
   },
   setup(props) {

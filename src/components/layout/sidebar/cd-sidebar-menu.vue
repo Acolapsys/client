@@ -9,12 +9,13 @@
 </template>
 
 <script lang="ts">
+import { IconMenuItem } from "@/types/menu";
 import { defineComponent } from "vue";
 
 export default defineComponent({
   name: "cd-sidebar-menu",
   setup() {
-    const menu = [
+    const menu: IconMenuItem[] = [
       {
         id: "dashboard",
         label: "dashboard",
