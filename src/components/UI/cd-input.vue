@@ -1,7 +1,7 @@
 <template>
   <div
     class="cd-relative cd-py-3 cd-px-5 cd-bg-grey-controls cd-rounded-[7px]"
-    :class="{ 'cd-pr-10': icon, [classes]: true }"
+    :class="[classes, { 'cd-pr-10': icon }]"
   >
     <input
       id="input-native"

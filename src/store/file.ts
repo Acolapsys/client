@@ -59,7 +59,29 @@ const actions = <ActionTree<FileProps, GlobalDataProps>>{
         console.log(result?.data?.message);
       }
     }
-  }
+  },
+  async uploadFile({ commit }, { file, dirId }: {file: string | Blob, dirId: number}) {
+    try {
+      const formData = new FormData();
+      formData.append("file", file);
+      if (typeof dirId ==="number" && dirId) {
+        formData.append("parentId", dirId.toString())
+      }
+
+      const response = await api.files.uploadFile(formData)
+      console.log('1', response);
+      
+      commit("addFile", response);
+
+      
+    } catch (e: unknown) {
+      if (e instanceof AxiosError) {
+        const result: AxiosResponse | undefined = e.response;
+
+        console.log(result?.data?.message);
+      }
+    }
+  },
 };
 
 const file: Module<FileProps, GlobalDataProps> = {

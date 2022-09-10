@@ -37,5 +37,32 @@ export default {
       }
     );
     return res.data;
+  },
+  uploadFile: async (formData: FormData) => {
+    const url = "api/files/upload";
+    const isNumber = (val: any): val is number => typeof val === "number";
+
+    const onUploadProgress = (progressEvent: ProgressEvent) => {
+      const totalLength = progressEvent.lengthComputable
+        ? progressEvent.total
+        : (<XMLHttpRequest>progressEvent?.target)?.getResponseHeader("content-length") ||
+          (<XMLHttpRequest>progressEvent?.target)?.getResponseHeader(
+            "x-decompressed-content-length"
+          );
+      console.log("total", totalLength);
+      if (isNumber(totalLength) && totalLength !== 0) {
+        const progress = Math.round((progressEvent.loaded * 100) / totalLength);
+        console.log(progress);
+      }
+    };
+
+    const res = await repository.post(url, formData, {
+      headers: {
+        ...authorizationHeaders(),
+        enctype: "multipart/form-data; charset=utf-8"
+      },
+      onUploadProgress
+    });
+    return res.data;
   }
 };
