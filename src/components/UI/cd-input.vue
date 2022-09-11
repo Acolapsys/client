@@ -1,7 +1,7 @@
 <template>
   <div
     class="cd-relative cd-py-3 cd-px-5 cd-bg-grey-controls cd-rounded-[7px]"
-    :class="[classes, { 'cd-pr-10': icon }]"
+    :class="[inputClasses, { 'cd-pr-10': icon }]"
   >
     <input
       id="input-native"
@@ -19,49 +19,46 @@
     />
   </div>
 </template>
-<script lang="ts">
-import { defineComponent, computed, toRefs } from "vue";
+<script lang="ts" setup>
+import { computed, toRefs } from "vue";
 import { useModelWrapper } from "@/hooks/modelWrapper";
 
-export default defineComponent({
-  props: {
-    modelValue: {
-      type: String,
-      default: null
-    },
-    icon: {
-      type: String,
-      default: null
-    },
-    classes: {
-      type: String,
-      default: ""
-    },
-    type: {
-      type: String,
-      default: "text"
-    },
-    placeholder: {
-      type: String,
-      default: "Input text..."
-    },
-    iconClasses: {
-      type: String,
-      default: null
-    }
+const props = defineProps({
+  modelValue: {
+    type: String,
+    default: null
   },
-  emits: ["update:modelValue"],
-  setup(props, { emit }) {
-    const { classes } = toRefs(props);
-
-    const inputClasses = computed(() => {
-      const baseClasses =
-        "cd-py-3 cd-px-5 cd-bg-grey-controls cd-rounded-[7px] cd-text-sm cd-leading-5";
-      const allClasses = [baseClasses, classes].join(" ");
-      return allClasses;
-    });
-    const inputValue = useModelWrapper(props, emit);
-    return { inputValue, inputClasses };
+  icon: {
+    type: String,
+    default: null
+  },
+  classes: {
+    type: String,
+    default: ""
+  },
+  type: {
+    type: String,
+    default: "text"
+  },
+  placeholder: {
+    type: String,
+    default: "Input text..."
+  },
+  iconClasses: {
+    type: String,
+    default: null
   }
 });
+
+const emit = defineEmits(["update:modelValue"]);
+
+const { classes } = toRefs(props);
+
+const inputClasses = computed(() => {
+  const baseClasses =
+    "cd-py-3 cd-px-5 cd-bg-grey-controls cd-rounded-[7px] cd-text-sm cd-leading-5";
+  const allClasses = [baseClasses, classes].join(" ");
+  return allClasses;
+});
+const inputValue = useModelWrapper(props, emit);
 </script>

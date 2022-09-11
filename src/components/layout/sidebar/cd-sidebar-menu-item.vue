@@ -11,20 +11,11 @@
   </router-link>
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
+import { toRefs } from "vue";
 import { IconMenuItem } from "@/types/menu";
-import { defineComponent, PropType } from "vue";
 
-export default defineComponent({
-  name: "cd-sidebar-menu",
-  props: {
-    item: {
-      type: Object as PropType<IconMenuItem>,
-      required: true
-    }
-  },
-  setup() {
-    return {};
-  }
-});
+const props = defineProps<{ item: IconMenuItem }>();
+
+const { item } = toRefs(props);
 </script>

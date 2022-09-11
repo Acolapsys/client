@@ -1,7 +1,9 @@
 <template>
   <div class="cd-rounded-[14px] cd-bg-white cd-p-6">
     <div class="cd-flex cd-items-center cd-mb-4 cd-flex-shrink-0">
-      <cd-button class="cd-mr-6" active @click="toParentDir">{{ "<" }} Back</cd-button>
+      <cd-button class="cd-mr-6" rounded active @click="toParentDir"
+        >{{ "<" }} Back</cd-button
+      >
       <span>{{ currentDir.name || "root" }}</span>
     </div>
 
@@ -21,39 +23,30 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, PropType, computed } from "vue";
+<script lang="ts" setup>
+import { computed, toRefs } from "vue";
 import { File, FileType } from "@/types/file";
 import { useStore } from "@/store";
 
-export default defineComponent({
-  name: "cd-files-file-list",
+interface Props {
+  files: File[];
+}
 
-  props: {
-    files: {
-      type: Array as PropType<File[]>
-    }
-  },
-  setup() {
-    const store = useStore();
-    const currentDir = computed(() => {
-      return store.state.file.currentDir;
-    });
-    const toParentDir = () => {
-      if (currentDir.value?.rootUserId) return;
-      store.dispatch("file/selectDir", currentDir.value?.parentId);
-    };
+const props = defineProps<Props>();
+const { files } = toRefs(props);
 
-    const selectDir = (file: File) => {
-      if (file.type === FileType.DIR) {
-        store.dispatch("file/selectDir", file.id);
-      }
-    };
-    return {
-      currentDir,
-      toParentDir,
-      selectDir
-    };
-  }
+const store = useStore();
+const currentDir = computed<File | null>(() => {
+  return store.state.file.currentDir;
 });
+const toParentDir = (): void => {
+  if (currentDir.value?.rootUserId) return;
+  store.dispatch("file/selectDir", currentDir.value?.parentId);
+};
+
+const selectDir = (file: File): void => {
+  if (file.type === FileType.DIR) {
+    store.dispatch("file/selectDir", file.id);
+  }
+};
 </script>

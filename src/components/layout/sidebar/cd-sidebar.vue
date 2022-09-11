@@ -8,14 +8,3 @@
     <cd-sidebar-menu />
   </aside>
 </template>
-
-<script lang="ts">
-import { defineComponent } from "vue";
-
-export default defineComponent({
-  name: "cd-sidebar",
-  setup() {
-    return {};
-  }
-});
-</script>

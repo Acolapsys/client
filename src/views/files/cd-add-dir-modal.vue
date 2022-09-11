@@ -7,31 +7,25 @@
     </form>
   </cd-base-modal>
 </template>
-<script lang="ts">
-import { defineComponent, ref } from "vue";
+<script lang="ts" setup>
+import { withDefaults, ref, toRefs } from "vue";
 
-export default defineComponent({
-  name: "cd-add-dir-modal",
-  props: {
-    visible: {
-      type: Boolean,
-      default: false
-    }
-  },
-  emits: ["create", "update:visible"],
-  setup(props, { emit }) {
-    const title = ref("");
-    const createDir = () => {
-      emit("create", title.value);
-      title.value = "";
-    };
+interface Props {
+  visible: boolean;
+}
 
-    const closeModal = () => {
-      title.value = "";
-      emit("update:visible", false);
-    };
+const props = withDefaults(defineProps<Props>(), { visible: false });
+const { visible } = toRefs(props);
+const emit = defineEmits(["create", "update:visible"]);
 
-    return { title, createDir, closeModal };
-  }
-});
+const title = ref("");
+const createDir = () => {
+  emit("create", title.value);
+  title.value = "";
+};
+
+const closeModal = () => {
+  title.value = "";
+  emit("update:visible", false);
+};
 </script>

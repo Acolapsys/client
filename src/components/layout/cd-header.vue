@@ -7,14 +7,8 @@
   </header>
 </template>
 
-<script lang="ts">
-import { defineComponent, ref } from "vue";
+<script lang="ts" setup>
+import { ref } from "vue";
 
-export default defineComponent({
-  name: "cd-header",
-  setup() {
-    const searchQuery = ref("");
-    return { searchQuery };
-  }
-});
+const searchQuery = ref("");
 </script>

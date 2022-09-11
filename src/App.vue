@@ -7,17 +7,12 @@
   <cd-footer />
 </template>
 
-<script lang="ts">
-import { defineComponent, onBeforeMount } from "vue";
+<script lang="ts" setup>
+import { onBeforeMount } from "vue";
 import { useStore } from "@/store";
 
-export default defineComponent({
-  setup() {
-    const store = useStore();
-    onBeforeMount(() => {
-      store.dispatch("user/auth");
-    });
-    return {};
-  }
+const store = useStore();
+onBeforeMount(() => {
+  store.dispatch("user/auth");
 });
 </script>

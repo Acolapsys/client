@@ -20,36 +20,30 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, ref } from "vue";
+<script lang="ts" setup>
+import { ref } from "vue";
 import { useStore } from "@/store";
 import { useRouter } from "vue-router";
 
-export default defineComponent({
-  name: "cd-login",
-  setup() {
-    const store = useStore();
-    const router = useRouter();
-    const email = ref("");
-    const password = ref("");
+const store = useStore();
+const router = useRouter();
+const email = ref("");
+const password = ref("");
 
-    const onCancel = () => {
-      email.value = "";
-      password.value = "";
-    };
+const onCancel = (): void => {
+  email.value = "";
+  password.value = "";
+};
 
-    const onSubmit = async (): Promise<void> => {
-      const userData = {
-        email: email.value,
-        password: password.value
-      };
+const onSubmit = async (): Promise<void> => {
+  const userData = {
+    email: email.value,
+    password: password.value
+  };
 
-      const isAuth = await store.dispatch("user/login", userData);
-      if (isAuth) {
-        router.push({ name: "home" });
-      }
-    };
-    return { email, password, onCancel, onSubmit };
+  const isAuth: boolean = await store.dispatch("user/login", userData);
+  if (isAuth) {
+    router.push({ name: "home" });
   }
-});
+};
 </script>

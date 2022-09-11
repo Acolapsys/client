@@ -17,9 +17,7 @@
   </svg>
 </template>
 <script lang="ts">
-import { defineComponent } from "vue";
-
-export default defineComponent({
+export default {
   name: "cd-icon-file-others"
-});
+};
 </script>

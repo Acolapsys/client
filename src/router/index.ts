@@ -26,6 +26,11 @@ const routes: Array<RouteRecordRaw> = [
     path: "/files",
     name: "files",
     component: () => import("../views/files/cd-files.vue")
+  },
+  {
+    path: "/ui-kit",
+    name: "ui-kit",
+    component: () => import("../views/files/ui-kit/cd-ui-kit.vue")
   }
 ];
 
@@ -36,7 +41,7 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   
-  const publicPages = ["/login", "/register", "/"];
+  const publicPages = ["/login", "/register", "/ui-kit", "/"];
   const authRequired = !publicPages.includes(to.path);
   const loggedIn = store.state.user.isAuth
   

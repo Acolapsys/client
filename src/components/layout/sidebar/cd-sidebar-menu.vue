@@ -8,28 +8,27 @@
   </nav>
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
 import { IconMenuItem } from "@/types/menu";
-import { defineComponent } from "vue";
 
-export default defineComponent({
-  name: "cd-sidebar-menu",
-  setup() {
-    const menu: IconMenuItem[] = [
-      {
-        id: "dashboard",
-        label: "dashboard",
-        icon: "cd-icon-dashboard",
-        to: { name: "dashboard" }
-      },
-      {
-        id: "files",
-        label: "files",
-        icon: "cd-icon-files",
-        to: { name: "files" }
-      }
-    ];
-    return { menu };
+const menu: IconMenuItem[] = [
+  {
+    id: "dashboard",
+    label: "dashboard",
+    icon: "cd-icon-dashboard",
+    to: { name: "dashboard" }
+  },
+  {
+    id: "files",
+    label: "files",
+    icon: "cd-icon-files",
+    to: { name: "files" }
+  },
+  {
+    id: "ui-kit",
+    label: "ui-kit",
+    icon: "cd-icon-files",
+    to: { name: "ui-kit" }
   }
-});
+];
 </script>

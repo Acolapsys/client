@@ -20,30 +20,23 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, ref } from "vue";
+<script lang="ts" setup>
+import { ref } from "vue";
 import { useStore } from "@/store";
 
-export default defineComponent({
-  name: "cd-register",
-  setup() {
-    const store = useStore();
-    const email = ref("");
-    const password = ref("");
+const store = useStore();
+const email = ref("");
+const password = ref("");
 
-    const onCancel = () => {
-      email.value = "";
-      password.value = "";
-    };
+const onCancel = () => {
+  email.value = "";
+  password.value = "";
+};
 
-    const onSubmit = async () => {
-      await store.dispatch("user/register", {
-        email: email.value,
-        password: password.value
-      });
-    };
-
-    return { email, password, onCancel, onSubmit };
-  }
-});
+const onSubmit = async (): Promise<void> => {
+  await store.dispatch("user/register", {
+    email: email.value,
+    password: password.value
+  });
+};
 </script>

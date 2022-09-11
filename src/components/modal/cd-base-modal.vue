@@ -13,24 +13,20 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
-
-export default defineComponent({
-  name: "cd-modal",
-  props: {
-    visible: {
-      type: Boolean,
-      default: false
-    }
-  },
-  emits: ["update:visible", "close"],
-  setup(props, { emit }) {
-    const close = () => {
-      emit("update:visible", false);
-      emit("close");
-    };
-    return { close };
+<script lang="ts" setup>
+import { toRefs } from "vue";
+const props = defineProps({
+  visible: {
+    type: Boolean,
+    default: false
   }
 });
+const { visible } = toRefs(props);
+
+const emit = defineEmits(["update:visible", "close"]);
+
+const close = () => {
+  emit("update:visible", false);
+  emit("close");
+};
 </script>
