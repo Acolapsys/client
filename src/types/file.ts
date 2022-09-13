@@ -10,7 +10,7 @@ export type File = {
   rootUserId: number
 };
 
-export enum FileType {
+export enum FileTypes {
   DIR = "dir",
   FILE = "file"
 }

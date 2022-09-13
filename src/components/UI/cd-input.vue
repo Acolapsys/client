@@ -1,7 +1,7 @@
 <template>
   <div
-    class="cd-relative cd-py-3 cd-px-5 cd-bg-grey-controls cd-rounded-[7px]"
-    :class="[inputClasses, { 'cd-pr-10': icon }]"
+    class="cd-relative cd-py-3 cd-px-5 cd-bg-grey-controls cd-rounded-[7px] cd-text-sm cd-leading-5"
+    :class="[classes, { 'cd-pr-10': icon }]"
   >
     <input
       id="input-native"
@@ -20,7 +20,7 @@
   </div>
 </template>
 <script lang="ts" setup>
-import { computed, toRefs } from "vue";
+import { toRefs } from "vue";
 import { useModelWrapper } from "@/hooks/modelWrapper";
 
 const props = defineProps({
@@ -54,11 +54,5 @@ const emit = defineEmits(["update:modelValue"]);
 
 const { classes } = toRefs(props);
 
-const inputClasses = computed(() => {
-  const baseClasses =
-    "cd-py-3 cd-px-5 cd-bg-grey-controls cd-rounded-[7px] cd-text-sm cd-leading-5";
-  const allClasses = [baseClasses, classes].join(" ");
-  return allClasses;
-});
 const inputValue = useModelWrapper(props, emit);
 </script>

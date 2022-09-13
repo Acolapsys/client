@@ -25,7 +25,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: "/files",
     name: "files",
-    component: () => import("../views/files/cd-files.vue")
+    component: () => import("../views/files/cd-files-wrapper.vue")
   },
   {
     path: "/ui-kit",

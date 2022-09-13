@@ -1,4 +1,5 @@
-import { FileType } from "@/types/file";
+import { FileTypes, File } from "@/types/file";
+import { convertGetFiles } from "@/utils/adapters/files";
 import authorizationHeaders from "@/utils/authorizationHeaders";
 import repository from "./repository";
 
@@ -11,7 +12,7 @@ export default {
       },
       headers: authorizationHeaders()
     });
-    return res.data;
+    return convertGetFiles(res.data);
   },
   getFileById: async (dirId: number) => {
     const url = "api/files/file";
@@ -30,7 +31,7 @@ export default {
       {
         parentId: dirId,
         name,
-        type: FileType.DIR
+        type: FileTypes.DIR
       },
       {
         headers: authorizationHeaders()
@@ -62,6 +63,17 @@ export default {
         enctype: "multipart/form-data; charset=utf-8"
       },
       onUploadProgress
+    });
+    return res.data;
+  },
+  async downloadFile(fileId: number): Promise<Blob> {
+    const url = "api/files/download";
+    const res = await repository.get(url, {
+      params: {
+        id: fileId
+      },
+      headers: authorizationHeaders(),
+      responseType: 'blob'
     });
     return res.data;
   }

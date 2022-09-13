@@ -16,7 +16,7 @@
         v-for="file in files"
         :key="file.id"
         :file="file"
-        class="cd-cursor-pointer cd-transition hover:cd-scale-[1.01] hover:cd-shadow"
+        class="cd-group cd-cursor-pointer cd-transition hover:cd-shadow"
         @click="selectDir(file)"
       />
     </div>
@@ -25,7 +25,7 @@
 
 <script lang="ts" setup>
 import { computed, toRefs } from "vue";
-import { File, FileType } from "@/types/file";
+import { File, FileTypes } from "@/types/file";
 import { useStore } from "@/store";
 
 interface Props {
@@ -45,7 +45,7 @@ const toParentDir = (): void => {
 };
 
 const selectDir = (file: File): void => {
-  if (file.type === FileType.DIR) {
+  if (file.type === FileTypes.DIR) {
     store.dispatch("file/selectDir", file.id);
   }
 };

@@ -25,6 +25,7 @@ const files = computed(() => {
 const currentDirId = computed(() => {
   return store.state.file.currentDir?.id;
 });
+
 onBeforeMount(async () => {
   await store.dispatch("file/getFiles", currentDirId.value);
 });

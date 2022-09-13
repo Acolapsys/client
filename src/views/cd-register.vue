@@ -10,8 +10,14 @@
         v-focus:custom="'#input-native'"
         placeholder="Введите email"
         classes="cd-mb-4"
+        type="email"
       />
-      <cd-input v-model="password" placeholder="Введите пароль" classes="cd-mb-4" />
+      <cd-input
+        v-model="password"
+        placeholder="Введите пароль"
+        classes="cd-mb-4"
+        type="password"
+      />
       <div class="cd-flex cd-justify-center cd-space-x-4">
         <cd-button class="cd-w-20" @click="onCancel">Cancel</cd-button>
         <cd-button class="cd-w-20" @click="onSubmit">Ok</cd-button>

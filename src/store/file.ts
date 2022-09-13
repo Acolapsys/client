@@ -60,20 +60,17 @@ const actions = <ActionTree<FileProps, GlobalDataProps>>{
       }
     }
   },
-  async uploadFile({ commit }, { file, dirId }: {file: string | Blob, dirId: number}) {
+  async uploadFile({ commit }, { file, dirId }: { file: string | Blob; dirId: number }) {
     try {
       const formData = new FormData();
       formData.append("file", file);
-      if (typeof dirId ==="number" && dirId) {
-        formData.append("parentId", dirId.toString())
+      if (typeof dirId === "number" && dirId) {
+        formData.append("parentId", dirId.toString());
       }
 
-      const response = await api.files.uploadFile(formData)
-      console.log('1', response);
-      
-      commit("addFile", response);
+      const response = await api.files.uploadFile(formData);
 
-      
+      commit("addFile", response);
     } catch (e: unknown) {
       if (e instanceof AxiosError) {
         const result: AxiosResponse | undefined = e.response;
@@ -82,6 +79,26 @@ const actions = <ActionTree<FileProps, GlobalDataProps>>{
       }
     }
   },
+  async downloadFile(_, file: File) {
+    try {
+      const res = await api.files.downloadFile(file.id);
+
+      const href = URL.createObjectURL(res);
+      const link = document.createElement("a");
+      link.href = href;
+      link.setAttribute("download", file.name);
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      URL.revokeObjectURL(href);
+    } catch (e: unknown) {
+      if (e instanceof AxiosError) {
+        const result: AxiosResponse | undefined = e.response;
+
+        console.log(result?.data?.message);
+      }
+    }
+  }
 };
 
 const file: Module<FileProps, GlobalDataProps> = {
