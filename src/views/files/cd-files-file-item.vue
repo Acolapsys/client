@@ -15,6 +15,7 @@
         />
         <cd-icon-delete
           class="cd-w-4 cd-h-4 cd-flex-none cd-cursor-pointer hover:cd-text-primary"
+          @click.stop="deleteFile"
         />
       </div>
     </div>
@@ -46,8 +47,14 @@ const date = computed<string>(() => {
 });
 
 const downloadFile = async () => {
-  console.log("1");
-
   await store.dispatch("file/downloadFile", file.value);
+};
+
+const deleteFile = async () => {
+  if (file.value.type === FileTypes.DIR) {
+    await store.dispatch("file/deleteDir", file.value.id);
+  } else {
+    await store.dispatch("file/deleteFile", file.value.id);
+  }
 };
 </script>

@@ -27,7 +27,6 @@ const dragEnterHandler = () => {
 const dropHandler = async (e: DragEvent): Promise<void> => {
   const target = e.dataTransfer as DataTransfer;
   const files: File[] = [...target.files];
-  console.log(files);
   const len = files.length;
   for (let i = 0; i < len; i++) {
     const file = files[i];

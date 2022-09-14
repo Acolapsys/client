@@ -4,6 +4,7 @@ import { FileProps } from "@/types/store/file";
 import { File } from "@/types/file";
 import { AxiosError, AxiosResponse } from "axios";
 import { ActionTree, Module, MutationTree } from "vuex";
+import files from "@/api/files";
 
 const state = (): FileProps => ({
   files: [],
@@ -19,6 +20,12 @@ const mutations = <MutationTree<FileProps>>{
   },
   setCurrentDir(state, dir: File) {
     state.currentDir = dir;
+  },
+  deleteFile(state, fileId: number) {
+    const idx = state.files.findIndex((file) => file.id === fileId);
+    if (idx !== -1) {
+      state.files.splice(idx, 1);
+    }
   }
 };
 
@@ -91,6 +98,30 @@ const actions = <ActionTree<FileProps, GlobalDataProps>>{
       link.click();
       link.remove();
       URL.revokeObjectURL(href);
+    } catch (e: unknown) {
+      if (e instanceof AxiosError) {
+        const result: AxiosResponse | undefined = e.response;
+
+        console.log(result?.data?.message);
+      }
+    }
+  },
+  async deleteFile({ commit }, fileId): Promise<void> {
+    try {
+      await api.files.deleteFile(fileId);
+      commit("deleteFile", fileId);
+    } catch (e: unknown) {
+      if (e instanceof AxiosError) {
+        const result: AxiosResponse | undefined = e.response;
+
+        console.log(result?.data?.message);
+      }
+    }
+  },
+  async deleteDir({ commit }, fileId): Promise<void> {
+    try {
+      await api.files.deleteDir(fileId);
+      commit("deleteFile", fileId);
     } catch (e: unknown) {
       if (e instanceof AxiosError) {
         const result: AxiosResponse | undefined = e.response;

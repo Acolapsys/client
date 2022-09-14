@@ -1,6 +1,7 @@
 import { FileTypes, File } from "@/types/file";
 import { convertGetFiles } from "@/utils/adapters/files";
 import authorizationHeaders from "@/utils/authorizationHeaders";
+import { AxiosResponse } from "axios";
 import repository from "./repository";
 
 export default {
@@ -74,6 +75,27 @@ export default {
       },
       headers: authorizationHeaders(),
       responseType: 'blob'
+    });
+    return res.data;
+  }, 
+  async deleteFile(fileId: number){
+    const url = "api/files/delete";
+    const res = await repository.get(url, {
+      params: {
+        id: fileId
+      },
+      headers: authorizationHeaders()
+    });
+    return res.data;
+  },
+  async deleteDir(dirId: number){
+    const url = "api/files/delete";
+    const res = await repository.get(url, {
+      params: {
+        id: dirId,
+        type: FileTypes.DIR
+      },
+      headers: authorizationHeaders()
     });
     return res.data;
   }

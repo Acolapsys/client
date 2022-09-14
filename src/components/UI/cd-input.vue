@@ -4,12 +4,12 @@
     :class="[classes, { 'cd-pr-10': icon }]"
   >
     <input
-      id="input-native"
+      data-label="input-native"
       :type="type"
       :placeholder="placeholder"
       autocomplete="off"
       v-model="inputValue"
-      class="cd-text-sm cd-leading-5 cd-bg-grey-controls cd-h-5"
+      class="cd-text-sm cd-leading-5 cd-bg-grey-controls cd-h-5 cd-w-full"
     />
     <component
       :is="icon"

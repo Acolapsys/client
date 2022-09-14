@@ -7,7 +7,7 @@
       <h3 class="cd-mb-6">Регистрация</h3>
       <cd-input
         v-model="email"
-        v-focus:custom="'#input-native'"
+        v-focus:custom="'input-native'"
         placeholder="Введите email"
         classes="cd-mb-4"
         type="email"
