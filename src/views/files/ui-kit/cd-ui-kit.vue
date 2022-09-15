@@ -42,6 +42,37 @@
       class="cd-mb-2"
       disabled
     />
+
+    <h2 class="cd-mb-2">Radio Buttons</h2>
+    <div class="cd-flex cd-flex-col">
+      <cd-radio-button
+        v-for="item in options"
+        v-model="radioValue"
+        :key="item"
+        :value="item"
+        :label="item"
+        :id="item"
+        name="users"
+        class="cd-mb-2"
+      />
+      <h2 class="cd-mb-2">Disabled radio</h2>
+      <cd-radio-button
+        v-for="item in options"
+        v-model="radioValue"
+        :key="item"
+        :value="item"
+        :label="item"
+        :id="item"
+        name="users"
+        class="cd-mb-2"
+        disabled
+      />
+    </div>
+    <h2 class="cd-mb-2">Switch</h2>
+    <div class="cd-flex cd-flex-col">
+      <cd-switch v-model="switchValue" label="I'm up to no good" class="cd-mb-2" />
+      <cd-switch v-model="switchValue" label="Disabled" disabled />
+    </div>
   </div>
 </template>
 
@@ -51,4 +82,6 @@ import { ref } from "vue";
 const firstCheckbox = ref<boolean>(false);
 const options = ["Alice", "Carl", "John"];
 const checksValue = ref([]);
+const radioValue = ref<string>("John");
+const switchValue = ref(false);
 </script>
