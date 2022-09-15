@@ -78,25 +78,16 @@ export default {
     });
     return res.data;
   }, 
-  async deleteFile(fileId: number){
+  async delete(fileId: number, type?: string){
     const url = "api/files/delete";
-    const res = await repository.get(url, {
+    const res = await repository.delete(url, {
       params: {
-        id: fileId
-      },
-      headers: authorizationHeaders()
-    });
-    return res.data;
-  },
-  async deleteDir(dirId: number){
-    const url = "api/files/delete";
-    const res = await repository.get(url, {
-      params: {
-        id: dirId,
-        type: FileTypes.DIR
+        id: fileId,
+        type
       },
       headers: authorizationHeaders()
     });
     return res.data;
   }
+
 };

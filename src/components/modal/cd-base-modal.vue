@@ -5,7 +5,7 @@
   >
     <div class="cd-relative">
       <cd-icon-close
-        class="cd-absolute cd-right-6 cd-top-6 cd-w-4 cd-h-4"
+        class="cd-absolute cd-right-6 cd-top-6 cd-w-4 cd-h-4 cd-cursor-pointer hover:cd-opacity-60"
         @click="close"
       />
       <slot></slot>

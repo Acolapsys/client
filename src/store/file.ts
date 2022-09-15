@@ -1,7 +1,7 @@
 import api from "@/api";
 import { GlobalDataProps } from "@/types/store";
 import { FileProps } from "@/types/store/file";
-import { File } from "@/types/file";
+import { File, FileTypes } from "@/types/file";
 import { AxiosError, AxiosResponse } from "axios";
 import { ActionTree, Module, MutationTree } from "vuex";
 import files from "@/api/files";
@@ -108,7 +108,7 @@ const actions = <ActionTree<FileProps, GlobalDataProps>>{
   },
   async deleteFile({ commit }, fileId): Promise<void> {
     try {
-      await api.files.deleteFile(fileId);
+      await api.files.delete(fileId);
       commit("deleteFile", fileId);
     } catch (e: unknown) {
       if (e instanceof AxiosError) {
@@ -120,7 +120,7 @@ const actions = <ActionTree<FileProps, GlobalDataProps>>{
   },
   async deleteDir({ commit }, fileId): Promise<void> {
     try {
-      await api.files.deleteDir(fileId);
+      await api.files.delete(fileId, FileTypes.DIR);
       commit("deleteFile", fileId);
     } catch (e: unknown) {
       if (e instanceof AxiosError) {

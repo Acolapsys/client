@@ -12,6 +12,8 @@
 </template>
 
 <script lang="ts" setup>
+//TODO: Move drag-n-drop to hook
+
 import { ref, computed } from "vue";
 import { useStore } from "@/store";
 const store = useStore();

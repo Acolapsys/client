@@ -2,7 +2,12 @@
   <cd-base-modal :visible="visible" @close="closeModal">
     <form @submit.prevent class="cd-bg-white cd-p-5 cd-rounded-[14px]">
       <h2 class="cd-mb-6">Create directory</h2>
-      <cd-input v-model="title" placeholder="Directory title" class="cd-mb-4" />
+      <cd-input
+        v-focus:custom="'input-native'"
+        v-model="title"
+        placeholder="Directory title"
+        class="cd-mb-4"
+      />
       <cd-button @click="createDir">Create</cd-button>
     </form>
   </cd-base-modal>
