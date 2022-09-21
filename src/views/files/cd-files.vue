@@ -11,6 +11,7 @@
   </div>
   <cd-files-file-list :files="files" />
   <cd-add-dir-modal v-model:visible="isCreateModalVisible" @create="createDir" />
+  <cd-files-uploader />
 </template>
 
 <script lang="ts" setup>
@@ -42,9 +43,10 @@ const uploadFile = async (e: Event): Promise<void> => {
   const target = e.target as HTMLInputElement;
   const files: FileList = target.files as FileList;
   const len = files.length;
+  store.commit("upload/setVisible", true);
   for (let i = 0; i < len; i++) {
     const file = files[i];
-    await store.dispatch("file/uploadFile", { file, dirId: currentDirId.value });
+    store.dispatch("file/uploadFile", { file, dirId: currentDirId.value });
   }
 };
 </script>

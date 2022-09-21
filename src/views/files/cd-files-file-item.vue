@@ -28,6 +28,8 @@ import { computed, toRefs } from "vue";
 import { FileTypes, File } from "@/types/file";
 import { useStore } from "@/store";
 
+//TODO: make truncate for long names
+
 interface Props {
   file: File;
 }

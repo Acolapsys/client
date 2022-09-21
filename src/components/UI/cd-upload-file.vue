@@ -7,7 +7,7 @@
     <span class="cd-font-semibold cd-text-sm cd-leading-[18px]"> Upload </span>
 
     <input
-      :miltiple="multiple"
+      :multiple="multiple"
       type="file"
       :name="inputId"
       :id="inputId"

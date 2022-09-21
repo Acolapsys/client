@@ -3,6 +3,7 @@ import { createStore, useStore as baseUseStore, Store } from 'vuex'
 
 import user from "@/store/user";
 import file from "@/store/file";
+import upload from "@/store/upload";
 import { GlobalDataProps } from '@/types/store';
 
 // Define Injection Key
@@ -14,7 +15,8 @@ export default createStore<GlobalDataProps>({
   actions: {},
   modules: {
     user,
-    file
+    file,
+    upload
   }
 });
 

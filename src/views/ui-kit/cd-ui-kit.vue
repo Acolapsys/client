@@ -69,10 +69,14 @@
       />
     </div>
     <h2 class="cd-mb-2">Switch</h2>
-    <div class="cd-flex cd-flex-col">
+    <div class="cd-flex cd-flex-col cd-mb-2">
       <cd-switch v-model="switchValue" label="I'm up to no good" class="cd-mb-2" />
       <cd-switch v-model="switchValue" label="Disabled" disabled />
     </div>
+    <h2 class="cd-mb-2">Progress Bar with text</h2>
+    <cd-progress-bar :percent="Number(40)" class="cd-w-[400px] cd-mb-2" numerical />
+    <h2 class="cd-mb-2">Progress Bar</h2>
+    <cd-progress-bar :percent="Number(40)" class="cd-w-[400px]" />
   </div>
 </template>
 

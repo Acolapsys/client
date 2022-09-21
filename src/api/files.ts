@@ -1,8 +1,11 @@
-import { FileTypes, File } from "@/types/file";
+import { FileTypes, File, UploadingFile } from "@/types/file";
 import { convertGetFiles } from "@/utils/adapters/files";
 import authorizationHeaders from "@/utils/authorizationHeaders";
 import { AxiosResponse } from "axios";
 import repository from "./repository";
+
+import { useStore } from "@/store";
+import { Commit } from "vuex";
 
 export default {
   getFiles: async (dirId: number) => {
@@ -40,7 +43,11 @@ export default {
     );
     return res.data;
   },
-  uploadFile: async (formData: FormData) => {
+  uploadFile: async (
+    formData: FormData,
+    uploadFile: UploadingFile,
+    callback: (file: UploadingFile) => void
+  ) => {
     const url = "api/files/upload";
     const isNumber = (val: any): val is number => typeof val === "number";
 
@@ -51,10 +58,9 @@ export default {
           (<XMLHttpRequest>progressEvent?.target)?.getResponseHeader(
             "x-decompressed-content-length"
           );
-      console.log("total", totalLength);
       if (isNumber(totalLength) && totalLength !== 0) {
-        const progress = Math.round((progressEvent.loaded * 100) / totalLength);
-        console.log(progress);
+        uploadFile.progress = Math.round((progressEvent.loaded * 100) / totalLength);
+        callback(uploadFile);
       }
     };
 
@@ -74,11 +80,11 @@ export default {
         id: fileId
       },
       headers: authorizationHeaders(),
-      responseType: 'blob'
+      responseType: "blob"
     });
     return res.data;
-  }, 
-  async delete(fileId: number, type?: string){
+  },
+  async delete(fileId: number, type?: string) {
     const url = "api/files/delete";
     const res = await repository.delete(url, {
       params: {
@@ -89,5 +95,4 @@ export default {
     });
     return res.data;
   }
-
 };

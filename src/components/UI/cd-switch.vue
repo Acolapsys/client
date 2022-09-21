@@ -6,7 +6,7 @@
     <input
       type="checkbox"
       :checked="isChecked"
-      :value="value"
+      :value="modelValue"
       @change="updateInput"
       :disabled="disabled"
     />

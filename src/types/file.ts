@@ -14,3 +14,9 @@ export enum FileTypes {
   DIR = "dir",
   FILE = "file"
 }
+
+export type UploadingFile = {
+  id: number;
+  name: string;
+  progress: number;
+}

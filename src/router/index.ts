@@ -30,7 +30,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: "/ui-kit",
     name: "ui-kit",
-    component: () => import("../views/files/ui-kit/cd-ui-kit.vue")
+    component: () => import("../views/ui-kit/cd-ui-kit.vue")
   }
 ];
 

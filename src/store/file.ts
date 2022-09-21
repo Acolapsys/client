@@ -1,7 +1,7 @@
 import api from "@/api";
 import { GlobalDataProps } from "@/types/store";
 import { FileProps } from "@/types/store/file";
-import { File, FileTypes } from "@/types/file";
+import { File as FileModel, FileTypes, UploadingFile } from "@/types/file";
 import { AxiosError, AxiosResponse } from "axios";
 import { ActionTree, Module, MutationTree } from "vuex";
 import files from "@/api/files";
@@ -12,17 +12,17 @@ const state = (): FileProps => ({
 });
 
 const mutations = <MutationTree<FileProps>>{
-  setFiles(state, files: File[]) {
+  setFiles(state, files: FileModel[]) {
     state.files = files;
   },
-  addFile(state, file: File) {
+  addFile(state, file: FileModel) {
     state.files.push(file);
   },
-  setCurrentDir(state, dir: File) {
+  setCurrentDir(state, dir: FileModel) {
     state.currentDir = dir;
   },
   deleteFile(state, fileId: number) {
-    const idx = state.files.findIndex((file) => file.id === fileId);
+    const idx = state.files.findIndex((file: FileModel) => file.id === fileId);
     if (idx !== -1) {
       state.files.splice(idx, 1);
     }
@@ -75,7 +75,19 @@ const actions = <ActionTree<FileProps, GlobalDataProps>>{
         formData.append("parentId", dirId.toString());
       }
 
-      const response = await api.files.uploadFile(formData);
+      const uploadFile: UploadingFile = {
+        name: (file as File).name,
+        progress: 0,
+        id: Date.now()
+      };
+
+      commit("upload/setVisible", true, { root: true });
+      commit("upload/addUploadFile", uploadFile, { root: true });
+      const changeCallback = (file: UploadingFile) => {
+        commit("upload/changeUploadFile", file, { root: true });
+      };
+
+      const response = await api.files.uploadFile(formData, uploadFile, changeCallback);
 
       commit("addFile", response);
     } catch (e: unknown) {
@@ -86,7 +98,7 @@ const actions = <ActionTree<FileProps, GlobalDataProps>>{
       }
     }
   },
-  async downloadFile(_, file: File) {
+  async downloadFile(_, file: FileModel) {
     try {
       const res = await api.files.downloadFile(file.id);
 
