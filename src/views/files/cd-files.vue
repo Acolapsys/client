@@ -28,7 +28,7 @@ const currentDirId = computed(() => {
 });
 
 onBeforeMount(async () => {
-  await store.dispatch("file/getFiles", currentDirId.value);
+  await store.dispatch("file/getFiles", { dirId: currentDirId.value });
 });
 const isCreateModalVisible = ref(false);
 const openModal = (): void => {

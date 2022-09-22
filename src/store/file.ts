@@ -30,9 +30,9 @@ const mutations = <MutationTree<FileProps>>{
 };
 
 const actions = <ActionTree<FileProps, GlobalDataProps>>{
-  async getFiles({ commit }, dirId) {
+  async getFiles({ commit }, { dirId, sort = "name" }) {
     try {
-      const files = await api.files.getFiles(dirId);
+      const files = await api.files.getFiles({ dirId, sort });
       commit("setFiles", files);
     } catch (e: unknown) {
       if (e instanceof AxiosError) {
@@ -54,9 +54,9 @@ const actions = <ActionTree<FileProps, GlobalDataProps>>{
       }
     }
   },
-  async selectDir({ commit, dispatch }, dirId) {
+  async selectDir({ commit, dispatch }, { dirId, sort }) {
     try {
-      dispatch("getFiles", dirId);
+      dispatch("getFiles", { dirId, sort });
       const fileInfo = await api.files.getFileById(dirId);
       commit("setCurrentDir", fileInfo);
     } catch (e: unknown) {

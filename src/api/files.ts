@@ -1,22 +1,22 @@
-import { FileTypes, File, UploadingFile } from "@/types/file";
+import { FileTypes,  UploadingFile } from "@/types/file";
 import { convertGetFiles } from "@/utils/adapters/files";
 import authorizationHeaders from "@/utils/authorizationHeaders";
-import { AxiosResponse } from "axios";
 import repository from "./repository";
 
-import { useStore } from "@/store";
-import { Commit } from "vuex";
+
 
 export default {
-  getFiles: async (dirId: number) => {
+  getFiles: async ({ dirId, sort }: { dirId: number, sort: string }) => {
     const url = "api/files";
     const res = await repository.get(url, {
       params: {
-        parentId: dirId
+        parentId: dirId,
+        sort
       },
       headers: authorizationHeaders()
     });
-    return convertGetFiles(res.data);
+    
+    return convertGetFiles(res.data, sort);
   },
   getFileById: async (dirId: number) => {
     const url = "api/files/file";

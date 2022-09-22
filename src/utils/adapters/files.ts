@@ -1,12 +1,19 @@
 import { FileTypes, File } from "@/types/file";
 
-const convertGetFiles = (files: File[]): File[] => {
-  const sortFunc = (x: File, y: File): number => {
-    if (x.type === FileTypes.DIR && y.type === FileTypes.DIR) return 0;
-    if (y.type === FileTypes.DIR) return 1;
-    return -1;
-  };
-  return files.sort(sortFunc);
+
+
+//TODO: make enum to sorting values
+const convertGetFiles = (files: File[], sort: string): File[] => {
+  const dirs = files.filter((file) => file.type === FileTypes.DIR);
+  if (sort === "type") {
+    dirs.sort((x, y) => {
+      if (x.name > y.name) return 1;
+      if (x.name < y.name) return -1;
+      return 0;
+    });
+  }
+  const notDirs = files.filter((file) => file.type !== FileTypes.DIR);
+  return [...dirs, ...notDirs];
 };
 
 export { convertGetFiles };

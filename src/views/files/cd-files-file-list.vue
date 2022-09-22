@@ -1,10 +1,17 @@
 <template>
   <div class="cd-rounded-[14px] cd-bg-white cd-p-6">
-    <div class="cd-flex cd-items-center cd-mb-4 cd-flex-shrink-0">
-      <cd-button class="cd-mr-6" rounded active @click="toParentDir"
-        >{{ "<" }} Back</cd-button
-      >
-      <span>{{ currentDir.name || "root" }}</span>
+    <div class="cd-flex cd-items-center cd-justify-between cd-mb-4 cd-flex-shrink-0">
+      <div class="cd-flex cd-items-center">
+        <cd-button class="cd-mr-6" rounded active @click="toParentDir"
+          >{{ "<" }} Back</cd-button
+        >
+        <span>{{ currentDir.name || "root" }}</span>
+      </div>
+      <select name="sort" id="sort" v-model="sortField" @change="changeSorting">
+        <option value="name">By name</option>
+        <option value="type">By type</option>
+        <option value="createdAt">By date</option>
+      </select>
     </div>
 
     <div
@@ -24,7 +31,10 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, toRefs } from "vue";
+//TODO: make enum to sorting values
+//TODO: make custom select
+
+import { computed, ref, toRefs } from "vue";
 import { File, FileTypes } from "@/types/file";
 import { useStore } from "@/store";
 
@@ -39,14 +49,25 @@ const store = useStore();
 const currentDir = computed<File | null>(() => {
   return store.state.file.currentDir;
 });
+const sortField = ref("name");
+const changeSorting = () => {
+  store.dispatch("file/selectDir", {
+    dirId: currentDir.value?.id,
+    sort: sortField.value
+  });
+};
+
 const toParentDir = (): void => {
   if (currentDir.value?.rootUserId) return;
-  store.dispatch("file/selectDir", currentDir.value?.parentId);
+  store.dispatch("file/selectDir", {
+    dirId: currentDir.value?.parentId,
+    sort: sortField.value
+  });
 };
 
 const selectDir = (file: File): void => {
   if (file.type === FileTypes.DIR) {
-    store.dispatch("file/selectDir", file.id);
+    store.dispatch("file/selectDir", { dirId: file.id, sort: sortField.value });
   }
 };
 </script>

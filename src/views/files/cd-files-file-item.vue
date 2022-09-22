@@ -21,12 +21,14 @@
     </div>
     <p class="cd-text-base-secondary cd-text-sm cd-font-bold">{{ file.name }}</p>
     <p class="cd-text-grey-5 cd-text-[13px]">{{ date }}</p>
+    <p v-if="!isDir" class="cd-text-grey-5 cd-text-[13px]">{{ toFileSize(file.size) }}</p>
   </div>
 </template>
 <script lang="ts" setup>
 import { computed, toRefs } from "vue";
 import { FileTypes, File } from "@/types/file";
 import { useStore } from "@/store";
+import { toFileSize } from "@/utils/formats";
 
 //TODO: make truncate for long names
 
